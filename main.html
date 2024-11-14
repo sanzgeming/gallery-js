@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gallery Insan</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0"></script>
+    <style>
+        /* Additional styling for the gallery */
+        .gallery-item {
+            transition: transform 0.3s ease;
+        }
+
+        .gallery-item:hover {
+            transform: scale(1.05);
+        }
+
+        /* Modal styling */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            justify-content: center;
+            align-items: center;
+            transition: all 0.3s ease;
+        }
+
+        .modal-content {
+            position: relative;
+            max-width: 80%;
+            max-height: 80%;
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .modal img {
+            width: 50%;
+            height: auto;
+            margin: 20px auto;
+        }
+
+        .close-modal {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background-color: red;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        /* Styling for image size in gallery */
+        .gallery-img {
+            width: 300px;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        footer {
+            position: absolute;
+            width: 100%;
+            height: 22.5%;
+        }
+
+        #particles-js {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+        }
+
+        p#modal-description {
+            color: black;
+        }
+    </style>
+</head>
+
+<body class="bg-black text-white font-sans">
+
+    <!-- Navbar -->
+    <header class="p-6 shadow-lg">
+        <div class="container mx-auto flex justify-center">
+            <h1 class="text-4xl font-bold text-white">Gallery Insan</h1>
+        </div>
+    </header>
+
+    <!-- Gallery Section -->
+    <section class="container mx-auto py-12" id="lightbox">
+
+        <!-- Grid for 8 images, split into two rows -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 px-5">
+            <!-- Row 1: Images 1-4 -->
+            <div class="gallery-item">
+                <div class="text-center">
+                    <h3 class="text-xl font-semibold mb-3">Kota Surabaya</h3>
+                    <img src="./images/img1.jpg" alt="Karya 1" class="gallery-img rounded-lg shadow-lg"
+                        data-description="Kota Surabaya adalah ibu kota Provinsi Jawa Timur yang menjadi pusat pemerintahan dan perekonomian sekaligus kota terbesar di provinsi tersebut."
+                        onclick="openModal(this, 1)">
+                    <p class="text-sm mt-2">Kota Surabaya adalah ibu kota Provinsi Jawa Timur, Indonesia.</p>
+                </div>
+            </div>
+            <div class="gallery-item">
+                <div class="text-center">
+                    <h3 class="text-xl font-semibold mb-3">Kota Sidoarjo</h3>
+                    <img src="./images/img2.jpg" alt="Karya 2" class="gallery-img rounded-lg shadow-lg"
+                        data-description="Kabupaten Sidoarjo adalah sebuah kabupaten di Provinsi Jawa Timur, Indonesia. Ibu kotanya adalah Kecamatan Sidoarjo."
+                        onclick="openModal(this, 1)">
+                    <p class="text-sm mt-2">Kabupaten Sidoarjo adalah sebuah kabupaten di Provinsi Jawa Timur,
+                        Indonesia.</p>
+                </div>
+            </div>
+            <div class="gallery-item">
+                <div class="text-center">
+                    <h3 class="text-xl font-semibold mb-3">Kota Malang</h3>
+                    <img src="./images/img3.jpg" alt="Karya 3" class="gallery-img rounded-lg shadow-lg"
+                        data-description="Kota Malang adalah sebuah kota yang terletak di Provinsi Jawa Timur, Indonesia. Kota ini didirikan pada masa Pemerintahan Belanda pada 1 April 1914."
+                        onclick="openModal(this, 1)">
+                    <p class="text-sm mt-2">Kota Malang adalah sebuah kota yang terletak di Provinsi Jawa Timur,
+                        Indonesia.</p>
+                </div>
+            </div>
+            <div class="gallery-item">
+                <div class="text-center">
+                    <h3 class="text-xl font-semibold mb-3">Kota Blitar</h3>
+                    <img src="./images/img4.jpg" alt="Karya 4" class="gallery-img rounded-lg shadow-lg"
+                        data-description="Kota Blitar merupakan sebuah kota yang terletak di bagian Selatan provinsi Jawa Timur, Indonesia."
+                        onclick="openModal(this, 1)">
+                    <p class="text-sm mt-2">Kota Blitar merupakan sebuah kota yang terletak di bagian Selatan provinsi
+                        Jawa Timur, Indonesia.</p>
+                </div>
+            </div>
+
+            <!-- Row 2: Images 5-8 -->
+            <div class="gallery-item">
+                <div class="text-center">
+                    <h3 class="text-xl font-semibold mb-3">Gunung Arjuno</h3>
+                    <img src="./images/img5.jpg" alt="Karya 5" class="gallery-img rounded-lg shadow-lg"
+                        data-description="Gunung Arjuno adalah sebuah gunung berapi kerucut di Jawa Timur, Indonesia dengan ketinggian 3.339 m dpl. Gunung Arjuno secara administratif terletak di perbatasan Kota Batu, Kabupaten Malang, dan Kabupaten Pasuruan dan berada di bawah pengelolaan Taman Hutan Raya Raden Soerjo."
+                        onclick="openModal(this, 2)">
+                    <p class="text-sm mt-2">Gunung Arjuno adalah sebuah gunung berapi kerucut di Jawa Timur, Indonesia
+                        dengan ketinggian 3.339 m dpl.</p>
+                </div>
+            </div>
+            <div class="gallery-item">
+                <div class="text-center">
+                    <h3 class="text-xl font-semibold mb-3">Gunung Sumeru</h3>
+                    <img src="./images/img6.jpg" alt="Karya 6" class="gallery-img rounded-lg shadow-lg"
+                        data-description="Gunung Semeru atau Gunung Meru adalah sebuah gunung berapi kerucut di Jawa Timur, Indonesia. Gunung Semeru merupakan gunung tertinggi di Pulau Jawa, dengan puncaknya Mahameru, 3.744 meter dari permukaan laut. Gunung ini terbentuk akibat subduksi Lempeng Indo-Australia kebawah Lempeng Sunda."
+                        onclick="openModal(this, 2)">
+                    <p class="text-sm mt-2">Gunung Semeru atau Gunung Meru adalah sebuah gunung berapi kerucut di Jawa
+                        Timur, Indonesia.</p>
+                </div>
+            </div>
+            <div class="gallery-item">
+                <div class="text-center">
+                    <h3 class="text-xl font-semibold mb-3">Gunung Kelud</h3>
+                    <img src="./images/img7.jpg" alt="Karya 7" class="gallery-img rounded-lg shadow-lg"
+                        data-description="Gunung Kelud adalah sebuah gunung berapi di Jawa Timur yang hingga sekarang tergolong aktif.Gunung ini berada di perbatasan antara Kabupaten Kediri, Kabupaten Blitar, dan Kabupaten Malang. Lokasinya kira-kira 45 km sebelah timur pusat Kota Kediri dan 25 km sebelah utara pusat Kota Blitar."
+                        onclick="openModal(this, 2)">
+                    <p class="text-sm mt-2">Gunung Kelud adalah sebuah gunung berapi di Jawa Timur yang hingga
+                        sekarang tergolong aktif.</p>
+                </div>
+            </div>
+            <div class="gallery-item">
+                <div class="text-center">
+                    <h3 class="text-xl font-semibold mb-3">Gunung Bromo</h3>
+                    <img src="./images/img8.jpg" alt="Karya 8" class="gallery-img rounded-lg shadow-lg"
+                        data-description="Gunung Bromo atau dalam bahasa Tengger dieja Brama, juga disebut Kaldera Tengger, adalah sebuah gunung berapi aktif di Jawa Timur, Indonesia. Gunung ini memiliki ketinggian 2.614 meter di atas permukaan laut dan berada dalam empat wilayah kabupaten, yakni Kabupaten Probolinggo, Kabupaten Pasuruan, Kabupaten Lumajang, dan Kabupaten Malang. Gunung Bromo terkenal sebagai objek wisata utama di Jawa Timur. Sebagai sebuah objek wisata, Bromo menjadi menarik karena statusnya sebagai gunung berapi yang masih aktif. Gunung Bromo termasuk dalam kawasan Taman Nasional Bromo Tengger Semeru."
+                        onclick="openModal(this, 2)">
+                    <p class="text-sm mt-2">Gunung Bromo atau dalam bahasa Tengger dieja "Brama", juga disebut Kaldera
+                        Tengger, adalah sebuah gunung berapi aktif di Jawa Timur, Indonesia.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Modal (Lightbox) -->
+    <div id="modal" class="modal">
+        <div class="modal-content relative">
+            <button class="absolute left-0 top-1/2 transform -translate-y-1/2 bg-gray-800 text-white p-2"
+                onclick="prevImage()">&#10094;</button>
+
+            <button class="close-modal absolute top-0 right-0 bg-red-500 text-white p-2"
+                onclick="closeModal()">X</button>
+
+            <img src="" alt="Modal Image" id="modal-image" class="w-full h-auto">
+            <p id="modal-description" class="mt-2 text-center"></p>
+
+            <button class="absolute right-0 top-1/2 transform -translate-y-1/2 bg-gray-800 text-white p-2"
+                onclick="nextImage()">&#10095;</button>
+        </div>
+    </div>
+
+    <!-- Particles -->
+    <div id="particles-js"></div>
+
+    <script src="./app.js"></script>
+    <script>
+        // Initialize particles.js
+        particlesJS('particles-js', {
+            particles: {
+                number: {
+                    value: 80
+                },
+                size: {
+                    value: 3
+                }
+            }
+        });
+    </script>
+</body>
+
+</html>
